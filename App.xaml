@@ -4,6 +4,51 @@
              xmlns:local="clr-namespace:LiCalculatorWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <Style TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" Background="{TemplateBinding Control.Background}"
+                                Focusable="False" BorderThickness="0" BorderBrush="#FF707070">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              Content="{TemplateBinding ContentControl.Content}" />
+                        </Border>
+                        <!--<ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#808080" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Border"  Property="Background" Value="Silver" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>-->
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Window}" x:Key="WindowBlur">  
+            <Setter Property="AllowsTransparency" Value="true"/>  
+            <Setter Property="Background" Value="Transparent"/>  
+            <Setter Property="FontSize" Value="24"/>  
+            <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>  
+            <Setter Property="WindowStyle" Value="None"/>  
+            <Setter Property="Template">  
+                <Setter.Value>  
+                    <ControlTemplate TargetType="{x:Type Window}">  
+                        <Grid Margin="{Binding Path=WMargin, ElementName=MWindow}" Name="_WinGrid">  
+                            <Border Background="{TemplateBinding Background}"  
+                                    BorderBrush="{TemplateBinding BorderBrush}"  
+                                    BorderThickness="{TemplateBinding BorderThickness}"  
+                                    Padding="{TemplateBinding Margin}"  
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"  
+                                    CornerRadius="5">  
+                                <ContentPresenter />  
+                            </Border>
+                            <AdornerDecorator></AdornerDecorator>
+                        </Grid>  
+                    </ControlTemplate>  
+                </Setter.Value>  
+            </Setter>  
+        </Style> 
     </Application.Resources>
 </Application>
