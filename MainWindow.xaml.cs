@@ -121,7 +121,7 @@ namespace LiCalculatorWPF
         private bool IsOnTitleBar(Point p)
         {
             // 假设标题栏在0和100之间
-            if (p.Y >= 0 && p.Y < 35 && p.X < RenderSize.Width - 140)
+            if (p.Y >= 7 && p.Y < 35 && p.X < RenderSize.Width - 140)
                 return true;
             else
                 return false;

@@ -7,28 +7,87 @@
         mc:Ignorable="d"
         Style="{StaticResource WindowBlur}"
         x:Name="MWindow"
-        Title="MainWindow" Height="610" Width="510" WindowStyle="None" SizeChanged="MWindowSC" >
-        <WindowChrome.WindowChrome>
-    <WindowChrome 
+        Title="MainWindow" Height="610" Width="410" WindowStyle="None" SizeChanged="MWindowSC">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
         CaptionHeight="0"
         ResizeBorderThickness="8" />
     </WindowChrome.WindowChrome>
+
     <Grid Margin="{Binding Path=WMargin, ElementName=MWindow}">
-        <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"  
-                    RadiusX="0" RadiusY="0">  
-            <Rectangle.Effect>  
-                <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.5"/>  
-            </Rectangle.Effect>  
-        </Rectangle>  
-        <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="30" RadiusY="5" RadiusX="5" VerticalAlignment="Top" MouseDown="TitlebarOnMD"/>
-        <Button x:Name="CloseButton" Style="{StaticResource CtrlButton}" Content="&#xE10A;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Background="#FFF2F2F2" Width="45" FontSize="12"  MouseEnter="CloseButtonOnME" MouseLeave="CloseButtonOnML" HorizontalAlignment="Right" FontFamily="Segoe UI Symbol" Click="CloseButtonOnClick"/>
+        <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                    RadiusX="0" RadiusY="0">
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
+            </Rectangle.Effect>
+        </Rectangle>
+        <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="30" RadiusY="5" RadiusX="5" VerticalAlignment="Top" MouseDown="TitlebarOnMD" />
+        <Button x:Name="CloseButton" Style="{StaticResource CtrlButton}" Content="&#xE10A;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Background="#FFF2F2F2" Width="45" FontSize="12"  MouseEnter="CloseButtonOnME" MouseLeave="CloseButtonOnML" HorizontalAlignment="Right" FontFamily="Segoe UI Symbol" Click="CloseButtonOnClick" />
         <Button x:Name="MaximizeAndRestoreButton" Style="{StaticResource CtrlButton}" Content="&#xE1D9;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Width="45" FontSize="12"  MouseEnter="MARButtonOnME" MouseLeave="MARButtonOnML" HorizontalAlignment="Right" Margin="0,0,45,0" Background="#FFF2F2F2" FontFamily="Segoe UI Symbol" Click="MARButtonOnClick" />
         <Button x:Name="MiniumButton" Style="{StaticResource CtrlButton}" Content="&#xE108;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Width="45" FontSize="12"  MouseEnter="MiniumButtonOnME" MouseLeave="MiniumButtonOnML" HorizontalAlignment="Right" Margin="0,0,90,0" Background="#FFF2F2F2" Click="MiniumButtonOnClick" FontFamily="Segoe UI Symbol" />
         <Border BorderBrush="{x:Static SystemParameters.WindowGlassBrush}" BorderThickness="1">
-            <Grid/>
-
+            <Grid Margin="0,200,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox Grid.Row="0" Grid.Column="0" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="0" Grid.Column="1" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="0" Grid.Column="2" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="0" Grid.Column="3" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="0" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="2" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="3" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="0" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="2" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="3" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="0" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="1" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="2" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="3" Stretch="Fill">
+                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
+                </Viewbox>
+            </Grid>
         </Border>
     </Grid>
-
-
 </Window>
