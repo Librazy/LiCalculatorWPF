@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:LiCalculatorWPF"
         mc:Ignorable="d"
         Style="{StaticResource WindowBlur}"
         x:Name="MWindow"
-        Title="MainWindow" Height="610" Width="410" WindowStyle="None" SizeChanged="MWindowSC">
+        Title="MainWindow" Height="610" Width="410" WindowStyle="None" SizeChanged="MWindowSC" MinWidth="210" MinHeight="340">
     <WindowChrome.WindowChrome>
         <WindowChrome
         CaptionHeight="0"
@@ -26,67 +27,45 @@
         <Button x:Name="MaximizeAndRestoreButton" Style="{StaticResource CtrlButton}" Content="&#xE1D9;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Width="45" FontSize="12"  MouseEnter="MARButtonOnME" MouseLeave="MARButtonOnML" HorizontalAlignment="Right" Margin="0,0,45,0" Background="#FFF2F2F2" FontFamily="Segoe UI Symbol" Click="MARButtonOnClick" />
         <Button x:Name="MiniumButton" Style="{StaticResource CtrlButton}" Content="&#xE108;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Width="45" FontSize="12"  MouseEnter="MiniumButtonOnME" MouseLeave="MiniumButtonOnML" HorizontalAlignment="Right" Margin="0,0,90,0" Background="#FFF2F2F2" Click="MiniumButtonOnClick" FontFamily="Segoe UI Symbol" />
         <Border BorderBrush="{x:Static SystemParameters.WindowGlassBrush}" BorderThickness="1">
-            <Grid Margin="0,200,0,0">
+            <Grid Margin="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="200*" MinHeight="100"/>
+                    <RowDefinition Height="400*" MinHeight="200"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100*" />
-                    <ColumnDefinition Width="100*" />
-                    <ColumnDefinition Width="100*" />
-                    <ColumnDefinition Width="100*" />
-                </Grid.ColumnDefinitions>
-                <Viewbox Grid.Row="0" Grid.Column="0" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="0" Grid.Column="1" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="0" Grid.Column="2" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="0" Grid.Column="3" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="0" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="2" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="3" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="2" Grid.Column="0" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="2" Grid.Column="2" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="2" Grid.Column="3" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="3" Grid.Column="0" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="3" Grid.Column="1" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="3" Grid.Column="2" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
-                <Viewbox Grid.Row="3" Grid.Column="3" Stretch="Fill">
-                    <Button Content="Button" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="0" Style="{StaticResource CtrlButton}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Height="100" Width="100" />
-                </Viewbox>
+                <Grid Margin="0,0,0,0" Grid.Row="1">
+                    <i:Interaction.Behaviors>
+                        <local:ScaleFontButtonBehavior MaxFontSize="32" />
+                    </i:Interaction.Behaviors>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100*" MinHeight="30"/>
+                        <RowDefinition Height="100*" MinHeight="30"/>
+                        <RowDefinition Height="100*" MinHeight="30"/>
+                        <RowDefinition Height="100*" MinHeight="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" MinWidth="30"/>
+                        <ColumnDefinition Width="100*" MinWidth="30"/>
+                        <ColumnDefinition Width="100*" MinWidth="30"/>
+                        <ColumnDefinition Width="100*" MinWidth="30"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="+"></Button>
+                    <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="-"></Button>
+                    <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="*"></Button>
+                    <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="/"></Button>
+                    <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="1"></Button>
+                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="2"></Button>
+                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="3"></Button>
+                    <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="("></Button>
+                    <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="4"></Button>
+                    <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="5"></Button>
+                    <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="6"></Button>
+                    <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content=")"></Button>
+                    <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="7"></Button>
+                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="8"></Button>
+                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="9"></Button>
+                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="="></Button>
+                </Grid>
             </Grid>
         </Border>
     </Grid>

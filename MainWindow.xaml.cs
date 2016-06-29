@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -9,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -69,7 +71,14 @@ namespace LiCalculatorWPF
         {
             SetBGTransform(MiniumButton, Color.FromRgb(218, 218, 218), Color.FromRgb(242, 242, 242), 0.1);
         }
-
+        private void WorkerButtonsOnME(object sender, MouseEventArgs e)
+        {
+            SetBGTransform((Button)sender, Color.FromRgb(230, 230, 230), Color.FromRgb(218, 218, 218), 0.1);
+        }
+        private void WorkerButtonsOnML(object sender, MouseEventArgs e)
+        {
+            SetBGTransform((Button)sender, Color.FromRgb(218, 218, 218), Color.FromRgb(230, 230, 230), 0.1);
+        }
         private void TitlebarOnMD(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -91,6 +100,7 @@ namespace LiCalculatorWPF
             }
         }
         #region
+
         private System.IntPtr WindowProc(
            System.IntPtr hwnd,
            int msg,
@@ -101,7 +111,7 @@ namespace LiCalculatorWPF
             switch (msg) {
                 case 0x0024:
                     WmGetMinMaxInfo(hwnd, lParam);
-                    handled = true;
+                    handled = false;
                     break;
                 case 0x0084:
                     Point p = new Point();
@@ -337,6 +347,107 @@ namespace LiCalculatorWPF
         private void CloseButtonOnClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+    
+    }
+
+    public class ScaleFontContentControlBehavior<S> 
+        : Behavior<Grid> where S: ContentControl
+    {
+        public static List<T> FindVisualChildren<T>(DependencyObject obj) where T : DependencyObject
+        {
+            List<T> children = new List<T>();
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++) {
+                var o = VisualTreeHelper.GetChild(obj, i);
+                if (o != null) {
+                    if (o is T)
+                        children.Add((T)o);
+
+                    children.AddRange(FindVisualChildren<T>(o)); // recursive
+                }
+            }
+            return children;
+        }
+
+        public static T FindUpVisualTree<T>(DependencyObject initial) where T : DependencyObject
+        {
+            DependencyObject current = initial;
+
+            while (current != null && current.GetType() != typeof(T)) {
+                current = VisualTreeHelper.GetParent(current);
+            }
+            return current as T;
+        }
+
+        // MaxFontSize
+        public double MaxFontSize { get { return (double)GetValue(MaxFontSizeProperty); } set { SetValue(MaxFontSizeProperty, value); } }
+        public static readonly DependencyProperty MaxFontSizeProperty = DependencyProperty.Register("MaxFontSize", typeof(double), typeof(ScaleFontContentControlBehavior<S>), new PropertyMetadata(20d));
+
+        protected override void OnAttached()
+        {
+            this.AssociatedObject.SizeChanged += (s, e) => { CalculateFontSize(); };
+        }
+
+        private void CalculateFontSize()
+        {
+            double fontSize = this.MaxFontSize;
+
+            List<S> tbs = FindVisualChildren<S>(this.AssociatedObject);
+
+            // get grid height (if limited)
+            double gridHeight = double.MaxValue;
+            Grid parentGrid = FindUpVisualTree<Grid>(this.AssociatedObject.Parent);
+            if (parentGrid != null) {
+                RowDefinition row = parentGrid.RowDefinitions[Grid.GetRow(this.AssociatedObject)];
+                gridHeight = row.Height == GridLength.Auto ? double.MaxValue : this.AssociatedObject.ActualHeight;
+            }
+
+            foreach (var tb in tbs) {
+                // get desired size with fontsize = MaxFontSize
+                Size desiredSize = MeasureText(tb);
+                double widthMargins = tb.Margin.Left + tb.Margin.Right+30;
+                double heightMargins = tb.Margin.Top + tb.Margin.Bottom+30;
+
+                double desiredHeight = desiredSize.Height + heightMargins;
+                double desiredWidth = desiredSize.Width + widthMargins;
+
+                // get column width (if limited)
+                ColumnDefinition col = this.AssociatedObject.ColumnDefinitions[Grid.GetColumn(tb)];
+                double colWidth = col.Width == GridLength.Auto ? double.MaxValue : col.ActualWidth;
+
+                // adjust fontsize if text would be clipped horizontally
+                if (colWidth < desiredWidth) {
+                    double factor = (desiredWidth - widthMargins) / (col.ActualWidth - widthMargins);
+                    fontSize = Math.Min(fontSize, MaxFontSize / factor);
+                }
+
+                RowDefinition row = this.AssociatedObject.RowDefinitions[Grid.GetRow(tb)];
+                double rowHeight = row.Height == GridLength.Auto ? double.MaxValue : row.ActualHeight;
+
+                // adjust fontsize if text would be clipped vertically
+                if (rowHeight < desiredHeight) {
+                    double factor = (desiredHeight - heightMargins) / (rowHeight - heightMargins);
+                    fontSize = Math.Min(fontSize, MaxFontSize / factor);
+                }
+            }
+
+            // apply fontsize (always equal fontsizes)
+            foreach (var tb in tbs) {
+                tb.FontSize = fontSize;
+            }
+        }
+
+        // Measures text size of textblock
+        private Size MeasureText(ContentControl tb)
+        {
+            if (tb.Content!=null) {
+            var formattedText = new FormattedText(tb.Content.ToString() , CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(tb.FontFamily, tb.FontStyle, tb.FontWeight, tb.FontStretch),
+                MaxFontSize, Brushes.Black); // always uses MaxFontSize for desiredSize
+                return new Size(formattedText.Width, formattedText.Height);
+            }
+            return new Size(0, 0);
         }
     }
 }

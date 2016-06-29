@@ -1,46 +1,52 @@
-﻿<Application x:Class="LiCalculatorWPF.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:LiCalculatorWPF"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         <Style TargetType="{x:Type Button}" x:Key="CtrlButton">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
+<Application x:Class="LiCalculatorWPF.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:LiCalculatorWPF" StartupUri="MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+  <Application.Resources>
+    <Style TargetType="{x:Type Button}" x:Key="CtrlButton">
+      <Setter Property="OverridesDefaultStyle" Value="true" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Button}">
+            <Border Name="Border" Background="{TemplateBinding Control.Background}" Focusable="False" BorderThickness="0" BorderBrush="#FF707070">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding ContentControl.Content}" />
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style TargetType="{x:Type Button}" x:Key="WorkerButton">
+      <Setter Property="OverridesDefaultStyle" Value="true" />
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="VerticalContentAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#FFE6E6E6" />
+            <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Button}">
+            <Border Name="Border" Background="{TemplateBinding Control.Background}" Focusable="False" BorderThickness="0" BorderBrush="#FF707070">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding ContentControl.Content}" />
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+        <Style TargetType="{x:Type Window}" x:Key="WindowBlur">
+            <Setter Property="AllowsTransparency" Value="true" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="ResizeMode" Value="CanResize" />
+            <Setter Property="WindowStyle" Value="None" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Name="Border" Background="{TemplateBinding Control.Background}"
-                                Focusable="False" BorderThickness="0" BorderBrush="#FF707070">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-                                              Content="{TemplateBinding ContentControl.Content}" />
-                        </Border>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <Grid Margin="{Binding Path=WMargin, ElementName=MWindow}" Name="_WinGrid">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Margin}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" CornerRadius="5">
+                                <ContentPresenter />
+                            </Border>
+                            <AdornerDecorator>
+                            </AdornerDecorator>
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Window}" x:Key="WindowBlur">  
-            <Setter Property="AllowsTransparency" Value="true"/>  
-            <Setter Property="Background" Value="Transparent"/>  
-            <Setter Property="FontSize" Value="24"/>  
-            <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>  
-            <Setter Property="WindowStyle" Value="None"/>  
-            <Setter Property="Template">  
-                <Setter.Value>  
-                    <ControlTemplate TargetType="{x:Type Window}">  
-                        <Grid Margin="{Binding Path=WMargin, ElementName=MWindow}" Name="_WinGrid">  
-                            <Border Background="{TemplateBinding Background}"  
-                                    BorderBrush="{TemplateBinding BorderBrush}"  
-                                    BorderThickness="{TemplateBinding BorderThickness}"  
-                                    Padding="{TemplateBinding Margin}"  
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"  
-                                    CornerRadius="5">  
-                                <ContentPresenter />  
-                            </Border>
-                            <AdornerDecorator></AdornerDecorator>
-                        </Grid>  
-                    </ControlTemplate>  
-                </Setter.Value>  
-            </Setter>  
-        </Style> 
     </Application.Resources>
 </Application>
