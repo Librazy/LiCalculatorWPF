@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Style="{StaticResource WindowBlur}"
         x:Name="MWindow"
-        Title="MainWindow" Height="610" Width="410" WindowStyle="None" SizeChanged="MWindowSC" MinWidth="210" MinHeight="340">
+        Title="MainWindow" Height="710" Width="410" WindowStyle="None" SizeChanged="MWindowSC" MinWidth="210" MinHeight="400">
     <WindowChrome.WindowChrome>
         <WindowChrome
         CaptionHeight="0"
@@ -29,14 +29,19 @@
         <Border BorderBrush="{x:Static SystemParameters.WindowGlassBrush}" BorderThickness="1">
             <Grid Margin="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="200*" MinHeight="100"/>
+                    <RowDefinition Height="300*" MinHeight="150"/>
                     <RowDefinition Height="400*" MinHeight="200"/>
                 </Grid.RowDefinitions>
+                <Grid Margin="0,30,0,0" Grid.Row="0">
+                    <TextBox x:Name="textBox" Margin="10,10,10,60" TextWrapping="Wrap" Text="TextBox" BorderThickness="0,0,1,1" FontSize="16" />
+
+                </Grid>
                 <Grid Margin="0,0,0,0" Grid.Row="1">
-                    <i:Interaction.Behaviors>
+                    <!--<i:Interaction.Behaviors>
                         <local:ScaleFontButtonBehavior MaxFontSize="32" />
-                    </i:Interaction.Behaviors>
+                    </i:Interaction.Behaviors>-->
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="100*" MinHeight="30"/>
                         <RowDefinition Height="100*" MinHeight="30"/>
                         <RowDefinition Height="100*" MinHeight="30"/>
                         <RowDefinition Height="100*" MinHeight="30"/>
@@ -53,20 +58,25 @@
                     <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="-"></Button>
                     <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="*"></Button>
                     <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="/"></Button>
-                    <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="1"></Button>
-                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="2"></Button>
-                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="3"></Button>
+                    <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="7"></Button>
+                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="8"></Button>
+                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="9"></Button>
                     <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="("></Button>
                     <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="4"></Button>
                     <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="5"></Button>
                     <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="6"></Button>
                     <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content=")"></Button>
-                    <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="7"></Button>
-                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="8"></Button>
-                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="9"></Button>
-                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="="></Button>
+                    <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="1"></Button>
+                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="2"></Button>
+                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="3"></Button>
+                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="&#xe083;" FontFamily="Segoe UI Symbol"></Button>
+                    <Button Grid.Row="4" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="."></Button>
+                    <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="0"></Button>
+                    <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="CE"></Button>
+                    <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="="></Button>
                 </Grid>
             </Grid>
         </Border>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="9,9,0,0" TextWrapping="Wrap" Text="LiCalc" VerticalAlignment="Top" FontSize="12"/>
     </Grid>
 </Window>

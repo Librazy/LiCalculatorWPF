@@ -348,7 +348,7 @@ namespace LiCalculatorWPF
         {
             Application.Current.Shutdown();
         }
-    
+
     }
 
     public class ScaleFontContentControlBehavior<S> 
