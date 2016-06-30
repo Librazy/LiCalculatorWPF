@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Style="{StaticResource WindowBlur}"
         x:Name="MWindow"
-        Title="MainWindow" Height="710" Width="410" WindowStyle="None" SizeChanged="MWindowSC" MinWidth="210" MinHeight="400">
+        Title="MainWindow" Height="710" Width="410" WindowStyle="None" SizeChanged="MWindowSC" MinWidth="210" MinHeight="500">
     <WindowChrome.WindowChrome>
         <WindowChrome
         CaptionHeight="0"
@@ -29,16 +29,16 @@
         <Border BorderBrush="{x:Static SystemParameters.WindowGlassBrush}" BorderThickness="1">
             <Grid Margin="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="300*" MinHeight="150"/>
-                    <RowDefinition Height="400*" MinHeight="200"/>
+                    <RowDefinition Height="350*" MinHeight="175"/>
+                    <RowDefinition Height="350*" MinHeight="175"/>
                 </Grid.RowDefinitions>
                 <Grid Margin="0,30,0,0" Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="180*" />
                         <RowDefinition Height="120*" />
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="InputBox" Grid.Column="0" Grid.Row="0" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" TextChanged="InputBoxOnTextChanged" />
-                    <TextBox x:Name="ResultBox" Grid.Column="0" Grid.Row="1" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" IsReadOnly="True" Background="#FFD7EFF4" />
+                    <TextBox x:Name="InputBox" Grid.Column="0" Grid.Row="0" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" TextChanged="InputBoxOnTextChanged" Padding="10" />
+                    <TextBox x:Name="ResultBox" Grid.Column="0" Grid.Row="1" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" IsReadOnly="True" Background="#FFD7EFF4" Padding="10" />
 
                 </Grid>
                 <Grid Margin="0,0,0,0" Grid.Row="1">

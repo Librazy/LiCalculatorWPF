@@ -50,7 +50,42 @@ namespace LiCalculatorWPF
             InitializeComponent();
             MWindow.SourceInitialized += new EventHandler(win_SourceInitialized);
         }
+        #region Dependency Property
 
+
+        public int WMargin
+        {
+            get { return (int)GetValue(WMarginProperty); }
+            set { SetValue(WMarginProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for WMargin.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WMarginProperty =
+            DependencyProperty.Register("WMargin", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
+        #endregion
+
+        #region MainWindow Events
+        private void MWindowSC(object sender, SizeChangedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                MaximizeAndRestoreButton.Content = "";
+                WMargin = 0;
+            }
+            else
+            {
+                MaximizeAndRestoreButton.Content = "";
+                WMargin = 10;
+            }
+        }
+
+        private void InputBoxOnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            BackspaceButtonClick.RaiseCanExecuteChanged();
+        }
+        #endregion
+
+        #region Titlebar Events
         private void CloseButtonOnME(object sender, MouseEventArgs e)
         {
             SetBGTransform(CloseButton, Color.FromRgb(242, 242, 242), Colors.Red, 0.1);
@@ -87,7 +122,6 @@ namespace LiCalculatorWPF
         {
             DragMove();
         }
-
         private void MiniumButtonOnClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -95,15 +129,24 @@ namespace LiCalculatorWPF
 
         private void MARButtonOnClick(object sender, RoutedEventArgs e)
         {
-            if (WindowState == WindowState.Maximized) {
+            if (WindowState == WindowState.Maximized)
+            {
                 WindowState = WindowState.Normal;
                 MaximizeAndRestoreButton.Content = "";
-            } else {
+            }
+            else
+            {
                 WindowState = WindowState.Maximized;
                 MaximizeAndRestoreButton.Content = "";
             }
         }
+        private void CloseButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        #endregion
 
+        #region Commands
         private RelayCommand<string> _inputButtonClick;
         public RelayCommand<string> InputButtonClick => _inputButtonClick ??
             (_inputButtonClick = new RelayCommand<string>(InputBoxAppend));
@@ -180,8 +223,8 @@ namespace LiCalculatorWPF
             ResultBox.ToolTip = null;
             Error = false;
         }
-
-        #region
+        #endregion
+        #region Hooks
 
         private System.IntPtr WindowProc(
            System.IntPtr hwnd,
@@ -247,7 +290,7 @@ namespace LiCalculatorWPF
 
             Marshal.StructureToPtr(mmi, lParam, true);
         }
-
+        #region Window structs
         [StructLayout(LayoutKind.Sequential)]
         public struct POINT
         {
@@ -389,7 +432,7 @@ namespace LiCalculatorWPF
 
 
         }
-
+        #endregion
         [DllImport("user32")]
         internal static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
@@ -400,41 +443,6 @@ namespace LiCalculatorWPF
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
         #endregion
-
-
-
-        public int WMargin
-        {
-            get { return (int)GetValue(WMarginProperty); }
-            set { SetValue(WMarginProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for WMargin.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty WMarginProperty =
-            DependencyProperty.Register("WMargin", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
-
-
-
-        private void MWindowSC(object sender, SizeChangedEventArgs e)
-        {
-            if (WindowState == WindowState.Maximized) {
-                MaximizeAndRestoreButton.Content = "";
-                WMargin = 0;
-            } else {
-                MaximizeAndRestoreButton.Content = "";
-                WMargin = 10;
-            }
-        }
-
-        private void CloseButtonOnClick(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void InputBoxOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            BackspaceButtonClick.RaiseCanExecuteChanged();
-        }
     }
 
     public class ScaleFontContentControlBehavior<S> 
