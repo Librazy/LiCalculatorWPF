@@ -27,6 +27,7 @@ namespace LiCalculator
 
         public bool Init => true;
         public IValue Value { get; set; }
+        public string Origin { get; set; }
     }
 
 
@@ -37,6 +38,7 @@ namespace LiCalculator
         public bool Init => LeftOperand != null && RightOperand != null;
         public IExpression LeftOperand { get; set; }
         public IExpression RightOperand { get; set; }
+        public string Origin { get; set; }
     }
 
     public class Sub : ILBinary
@@ -45,6 +47,7 @@ namespace LiCalculator
         public bool Init => LeftOperand != null && RightOperand != null;
         public IExpression LeftOperand { get; set; }
         public IExpression RightOperand { get; set; }
+        public string Origin { get; set; }
     }
 
     public class Mul : IHBinary
@@ -53,6 +56,7 @@ namespace LiCalculator
         public bool Init => LeftOperand != null && RightOperand != null;
         public IExpression LeftOperand { get; set; }
         public IExpression RightOperand { get; set; }
+        public string Origin { get; set; }
     }
 
     public class Div : IHBinary
@@ -61,6 +65,7 @@ namespace LiCalculator
         public bool Init => LeftOperand != null && RightOperand != null;
         public IExpression LeftOperand { get; set; }
         public IExpression RightOperand { get; set; }
+        public string Origin { get; set; }
     }
 
     public class Func : IUnary
@@ -72,5 +77,6 @@ namespace LiCalculator
             Operand = Operand.Value,
             Fun = Fun
         };
+        public string Origin { get; set; }
     }
 }

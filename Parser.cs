@@ -64,6 +64,18 @@ namespace LiCalculator
                 } else {
                     --no;
                 }
+                if (
+                   ((expStack.Count >= 3 && !(expStack.Peek(2).Init)) || expStack.Count == 2)
+                  && expStack.Peek().Init
+                  && !expStack.Peek(1).Init
+                  && expStack.Peek(1) is Sub){
+                    var ro = expStack.Pop();
+                    var o = (Sub)expStack.Pop();
+                    var lo = new Val(0);
+                    o.LeftOperand = lo;
+                    o.RightOperand = ro;
+                    expStack.Push(o);
+                }
                 if (expStack.Count >= 3
                     && expStack.Peek().Init
                     && expStack.Peek(2).Init
@@ -100,18 +112,6 @@ namespace LiCalculator
                     var ro = expStack.Pop();
                     var o = (IBinary)expStack.Pop();
                     var lo = expStack.Pop();
-                    o.LeftOperand = lo;
-                    o.RightOperand = ro;
-                    expStack.Push(o);
-                } else if (
-                    ((expStack.Count >= 3 && !(expStack.Peek(2).Init)) || expStack.Count == 2)
-                   && expStack.Peek().Init
-                   && !expStack.Peek(1).Init
-                   && expStack.Peek(1) is Sub
-                   ) {
-                    var ro = expStack.Pop();
-                    var o = (Sub)expStack.Pop();
-                    var lo = new Val(0);
                     o.LeftOperand = lo;
                     o.RightOperand = ro;
                     expStack.Push(o);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -18,13 +19,18 @@ namespace LiCalculatorWPF
     /// </summary>
     public partial class MainWindow
     {
+        private bool _historyInputMode = true;
+
         public MainWindow()
         {
             InitializeComponent();
             MWindow.SourceInitialized += WinSourceInitialized;
         }
+
+        public ObservableCollection<IExpression> HistoryInput { get; set; } = new ObservableCollection<IExpression>();
+
         /// <summary>
-        /// 设置一个控件的背景色渐变
+        ///     设置一个控件的背景色渐变
         /// </summary>
         /// <param name="b">控件</param>
         /// <param name="from">起始颜色</param>
@@ -46,16 +52,18 @@ namespace LiCalculatorWPF
         }
 
         #region Dependency Property
+
         /// <summary>
-        /// 主窗体的外边距（阴影宽度）
+        ///     主窗体的外边距（阴影宽度）
         /// </summary>
         public int WMargin
         {
             get { return (int) GetValue(WMarginProperty); }
             set { SetValue(WMarginProperty, value); }
         }
+
         /// <summary>
-        /// 主窗体的外边距（阴影宽度）的DependencyProperty
+        ///     主窗体的外边距（阴影宽度）的DependencyProperty
         /// </summary>
         // Using a DependencyProperty as the backing store for WMargin.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WMarginProperty =
@@ -63,17 +71,18 @@ namespace LiCalculatorWPF
 
         public string AdvancedInputWidth
         {
-            get { return (string)GetValue(AdvancedInputWidthProperty); }
+            get { return (string) GetValue(AdvancedInputWidthProperty); }
             set { SetValue(AdvancedInputWidthProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for AdvancedInputWidth.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AdvancedInputWidthProperty =
-            DependencyProperty.Register("AdvancedInputWidth", typeof(string), typeof(MainWindow), new PropertyMetadata("0"));
+            DependencyProperty.Register("AdvancedInputWidth", typeof(string), typeof(MainWindow),
+                new PropertyMetadata("0"));
 
         public string MemoryWidth
         {
-            get { return (string)GetValue(MemoryWidthProperty); }
+            get { return (string) GetValue(MemoryWidthProperty); }
             set { SetValue(MemoryWidthProperty, value); }
         }
 
@@ -81,12 +90,9 @@ namespace LiCalculatorWPF
         public static readonly DependencyProperty MemoryWidthProperty =
             DependencyProperty.Register("MemoryWidth", typeof(string), typeof(MainWindow), new PropertyMetadata("0"));
 
-
-
-
         public double ScaledFontSize
         {
-            get { return (double)GetValue(ScaledFontSizeProperty); }
+            get { return (double) GetValue(ScaledFontSizeProperty); }
             set { SetValue(ScaledFontSizeProperty, value); }
         }
 
@@ -94,6 +100,27 @@ namespace LiCalculatorWPF
         public static readonly DependencyProperty ScaledFontSizeProperty =
             DependencyProperty.Register("ScaledFontSize", typeof(double), typeof(MainWindow), new PropertyMetadata(30d));
 
+        public string HistoryInputColor
+        {
+            get { return (string) GetValue(HistoryInputColorProperty); }
+            set { SetValue(HistoryInputColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HistoryInputColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HistoryInputColorProperty =
+            DependencyProperty.Register("HistoryInputColor", typeof(string), typeof(MainWindow),
+                new PropertyMetadata("#FF000000"));
+
+        public string HistoryResultColor
+        {
+            get { return (string) GetValue(HistoryResultColorProperty); }
+            set { SetValue(HistoryResultColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HistoryInputColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HistoryResultColorProperty =
+            DependencyProperty.Register("HistoryResultColor", typeof(string), typeof(MainWindow),
+                new PropertyMetadata("#FF666666"));
 
         #endregion
 
@@ -109,18 +136,14 @@ namespace LiCalculatorWPF
                 WMargin = 10;
             }
             AdvancedInputWidth = MWindow.ActualWidth > 500 ? "50*" : "0";
-            MemoryWidth = MWindow.ActualWidth > 900 ? "300" : "0";
-            ScaledFontSize = (BackspaceButton?.FontSize + 24) / 2 ?? 30;
-    }
+            MemoryWidth = MWindow.ActualWidth > 700 ? "300" : "0";
+            ScaledFontSize = (BackspaceButton?.FontSize + 24)/2 ?? 30;
+        }
 
         private void InputBoxOnTextChanged(object sender, TextChangedEventArgs e)
         {
             BackspaceButtonClick.RaiseCanExecuteChanged();
         }
-
-        #endregion
-
-        #region Titlebar Events
 
         private void CloseButtonOnME(object sender, MouseEventArgs e)
         {
@@ -162,6 +185,16 @@ namespace LiCalculatorWPF
             SetBGTransform((Button) sender, Color.FromRgb(218, 218, 218), Color.FromRgb(230, 230, 230), 0.3);
         }
 
+        private void HistoryButtonsOnME(object sender, MouseEventArgs e)
+        {
+            SetBGTransform((Button) sender, Color.FromRgb(240, 240, 240), Color.FromRgb(218, 218, 228), 0.1);
+        }
+
+        private void HistoryButtonsOnML(object sender, MouseEventArgs e)
+        {
+            SetBGTransform((Button) sender, Color.FromRgb(218, 218, 228), Color.FromRgb(240, 240, 240), 0.3);
+        }
+
         private void TitlebarOnMD(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -188,6 +221,20 @@ namespace LiCalculatorWPF
             Application.Current.Shutdown();
         }
 
+        private void HistoryInputTextBlockMU(object sender, MouseButtonEventArgs e)
+        {
+            _historyInputMode = true;
+            HistoryInputColor = "#FF000000";
+            HistoryResultColor = "#FF666666";
+        }
+
+        private void HistoryResultTextBlockMU(object sender, MouseButtonEventArgs e)
+        {
+            _historyInputMode = false;
+            HistoryInputColor = "#FF666666";
+            HistoryResultColor = "#FF000000";
+        }
+
         #endregion
 
         #region Commands
@@ -204,7 +251,7 @@ namespace LiCalculatorWPF
             InputBox.Focus();
             InputBox.CaretIndex = caretIndex + s.Length;
         }
-        
+
         private RelayCommand _backspaceButtonClick;
 
         public RelayCommand BackspaceButtonClick => _backspaceButtonClick ??
@@ -237,12 +284,15 @@ namespace LiCalculatorWPF
             try {
                 ResultBox.ToolTip = null;
                 ResultBox.Text = "";
-                var exp = Parse(ToTokens(input));
+                var t = ToTokens(input);
+                var exp = Parse(t);
+                exp.Origin = input;
                 ResultBox.Text = exp.Value.ToString();
                 ResultBox.ToolTip = exp.Value is FloatPoint
                     ? null
                     : exp.Value.Value.ToString(CultureInfo.InvariantCulture);
                 Error = false;
+                HistoryInput.Add(exp);
             } catch (FuntionOutOfRangeException) {
                 ResultBox.Text = "并没有搞懂你说的是哪个函数的计算器(´･_･`)";
             } catch (OperatorOutOfRangeException) {
@@ -255,7 +305,7 @@ namespace LiCalculatorWPF
                 ResultBox.Text = "并不知道怎么算的计算>_<#器";
             } catch (ArgumentOutOfRangeException) {
                 ResultBox.Text = "并无法理解函数参(╯-╰)/ 数的计算器";
-            } catch (OverflowException){
+            } catch (OverflowException) {
                 ResultBox.Text = "并不会算这么TAT大数的计算器";
             }
         }
@@ -286,18 +336,38 @@ namespace LiCalculatorWPF
 
         public void CloseBracket()
         {
-            var s = InputBox.Text.Substring(0,InputBox.CaretIndex)+"()";
+            var s = InputBox.Text.Substring(0, InputBox.CaretIndex) + "()";
             var n =
                 (from c in s.ToCharArray()
                     where c == '(' || c == ')'
-                    group c by c == '(' into g
-                    orderby g.Key select g.Count()
-                ).Aggregate((a, b) => b - a);
+                    group c by c == '('
+                    into g
+                    orderby g.Key
+                    select g.Count()
+                    ).Aggregate((a, b) => b - a);
             if (n > 0) InputBoxInsert(new string(')', n));
             else {
                 var i = InputBox.CaretIndex;
                 InputBox.Text = new string('(', -n) + InputBox.Text;
                 InputBox.CaretIndex = i - n;
+            }
+        }
+
+        private RelayCommand<IExpression> _historyButtonClick;
+
+        public RelayCommand<IExpression> HistoryButtonClick =>
+            _historyButtonClick ??
+            (_historyButtonClick =
+                new RelayCommand<IExpression>(RestoreHistory));
+
+        private void RestoreHistory(IExpression exp)
+        {
+            if (_historyInputMode) {
+                ClearInput();
+                InputBox.Text = "";
+                InputBoxInsert(exp.Origin);
+            } else {
+                InputBoxInsert(exp.Value.ToString());
             }
         }
 

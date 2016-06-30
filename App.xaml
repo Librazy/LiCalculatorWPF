@@ -12,23 +12,40 @@
         </Setter.Value>
       </Setter>
     </Style>
-    <Style TargetType="{x:Type Button}" x:Key="WorkerButton">
-      <Setter Property="FontSize" Value="36" />
-      <Setter Property="OverridesDefaultStyle" Value="true" />
-      <Setter Property="Margin" Value="0" />
-      <Setter Property="VerticalContentAlignment" Value="Stretch" />
-      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-      <Setter Property="Background" Value="#FFE6E6E6" />
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type Button}">
-            <Border Name="Border" Background="{TemplateBinding Control.Background}" Focusable="False" BorderThickness="0" BorderBrush="#FF707070">
-              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding ContentControl.Content}" />
-            </Border>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
+        <Style TargetType="{x:Type Button}" x:Key="WorkerButton">
+          <Setter Property="FontSize" Value="36" />
+          <Setter Property="OverridesDefaultStyle" Value="true" />
+          <Setter Property="Margin" Value="0" />
+          <Setter Property="VerticalContentAlignment" Value="Stretch" />
+          <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+          <Setter Property="Background" Value="#FFE4E4E4" />
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="{x:Type Button}">
+                <Border Name="Border" Background="{TemplateBinding Control.Background}" Focusable="False" BorderThickness="0" BorderBrush="#FF707070">
+                  <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding ContentControl.Content}"/>
+                </Border>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="HistoryButton">
+            <Setter Property="FontSize" Value="36" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#FFF2F2F2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" Background="{TemplateBinding Control.Background}" Focusable="False" BorderThickness="0" BorderBrush="#FF707070">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding ContentControl.Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="{x:Type Window}" x:Key="WindowBlur">
             <Setter Property="AllowsTransparency" Value="true" />
             <Setter Property="Background" Value="Transparent" />
@@ -49,5 +66,20 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <ControlTemplate x:Key="ListViewNewTemplate" TargetType="{x:Type ListBox}">
+            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True">
+                <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
+                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                </ScrollViewer>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsGrouping" Value="True">
+                    <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Application.Resources>
 </Application>
