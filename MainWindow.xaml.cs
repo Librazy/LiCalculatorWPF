@@ -16,6 +16,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.CommandWpf;
+using LiCalculator;
+using static LiCalculator.Parser;
+using static LiCalculator.Tokenizer;
 using WinInterop = System.Windows.Interop;
 
 namespace LiCalculatorWPF
@@ -99,6 +103,52 @@ namespace LiCalculatorWPF
                 MaximizeAndRestoreButton.Content = "";
             }
         }
+
+        private RelayCommand<string> _inputButtonClick;
+        public RelayCommand<string> InputButtonClick => _inputButtonClick ??
+            (_inputButtonClick = new RelayCommand<string>(InputBoxAppend));
+
+        public void InputBoxAppend(string s)
+        {
+            var caretIndex = InputBox.CaretIndex;
+            InputBox.Text = InputBox.Text.Insert(caretIndex, s);
+            InputBox.Focus();
+            InputBox.CaretIndex = caretIndex + 1;
+        }
+
+        private RelayCommand _backspaceButtonClick;
+
+        public RelayCommand BackspaceButtonClick => _backspaceButtonClick ??
+                                                (_backspaceButtonClick =
+                                                    new RelayCommand(InputBoxBackspace, () => InputBox.CaretIndex > 0))
+            ;
+
+        public void InputBoxBackspace()
+        {
+            var caretIndex = InputBox.CaretIndex;
+            InputBox.Text = InputBox.Text.Remove(caretIndex - 1, 1);
+            InputBox.Focus();
+            InputBox.CaretIndex = caretIndex - 1;
+        }
+
+        private RelayCommand _equalsButtonClick;
+
+        public RelayCommand EqualsButtonClick => _equalsButtonClick ??
+                                                (_equalsButtonClick =
+                                                    new RelayCommand(Solve, () => InputBox.Text.Length > 0))
+            ;
+
+        public void Solve()
+        {
+            var input = InputBox.Text;
+            try {
+                IExpression exp = Parse(ToTokens(input));
+                ResultBox.Text = exp.Value.ToString();
+            } catch(Exception e) {
+                ResultBox.Text = e.ToString();
+            }
+        }
+
         #region
 
         private System.IntPtr WindowProc(
@@ -349,6 +399,10 @@ namespace LiCalculatorWPF
             Application.Current.Shutdown();
         }
 
+        private void InputBoxOnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            BackspaceButtonClick.RaiseCanExecuteChanged();
+        }
     }
 
     public class ScaleFontContentControlBehavior<S> 
@@ -394,12 +448,9 @@ namespace LiCalculatorWPF
 
             List<S> tbs = FindVisualChildren<S>(this.AssociatedObject);
 
-            // get grid height (if limited)
-            double gridHeight = double.MaxValue;
             Grid parentGrid = FindUpVisualTree<Grid>(this.AssociatedObject.Parent);
             if (parentGrid != null) {
                 RowDefinition row = parentGrid.RowDefinitions[Grid.GetRow(this.AssociatedObject)];
-                gridHeight = row.Height == GridLength.Auto ? double.MaxValue : this.AssociatedObject.ActualHeight;
             }
 
             foreach (var tb in tbs) {
@@ -449,5 +500,8 @@ namespace LiCalculatorWPF
             }
             return new Size(0, 0);
         }
+    }
+    public class ScaleFontButtonBehavior : ScaleFontContentControlBehavior<Button>
+    {
     }
 }

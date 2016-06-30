@@ -33,13 +33,18 @@
                     <RowDefinition Height="400*" MinHeight="200"/>
                 </Grid.RowDefinitions>
                 <Grid Margin="0,30,0,0" Grid.Row="0">
-                    <TextBox x:Name="textBox" Margin="10,10,10,60" TextWrapping="Wrap" Text="TextBox" BorderThickness="0,0,1,1" FontSize="16" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="180*" />
+                        <RowDefinition Height="120*" />
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="InputBox" Grid.Column="0" Grid.Row="0" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" TextChanged="InputBoxOnTextChanged" />
+                    <TextBox x:Name="ResultBox" Grid.Column="0" Grid.Row="1" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" IsReadOnly="True" Background="#FFD7EFF4" />
 
                 </Grid>
                 <Grid Margin="0,0,0,0" Grid.Row="1">
-                    <!--<i:Interaction.Behaviors>
+                    <i:Interaction.Behaviors>
                         <local:ScaleFontButtonBehavior MaxFontSize="32" />
-                    </i:Interaction.Behaviors>-->
+                    </i:Interaction.Behaviors>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100*" MinHeight="30"/>
                         <RowDefinition Height="100*" MinHeight="30"/>
@@ -54,26 +59,26 @@
                         <ColumnDefinition Width="100*" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="+"></Button>
-                    <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="-"></Button>
-                    <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="*"></Button>
-                    <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="/"></Button>
-                    <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="7"></Button>
-                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="8"></Button>
-                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="9"></Button>
-                    <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="("></Button>
-                    <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="4"></Button>
-                    <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="5"></Button>
-                    <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="6"></Button>
-                    <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content=")"></Button>
-                    <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="1"></Button>
-                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="2"></Button>
-                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="3"></Button>
-                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="&#xe083;" FontFamily="Segoe UI Symbol"></Button>
-                    <Button Grid.Row="4" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="."></Button>
-                    <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="0"></Button>
-                    <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="CE"></Button>
-                    <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="="></Button>
+                    <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="+" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="+"></Button>
+                    <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="-" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="-"></Button>
+                    <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="*" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="*"></Button>
+                    <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="/" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="/"></Button>
+                    <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="7" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="7"></Button>
+                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="8" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="8"></Button>
+                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="9" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="9"></Button>
+                    <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="(" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="("></Button>
+                    <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="4" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="4"></Button>
+                    <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="5" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="5"></Button>
+                    <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="6" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="6"></Button>
+                    <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content=")" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter=")"></Button>
+                    <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="1" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="1"></Button>
+                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="2" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="2"></Button>
+                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="3" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="3"></Button>
+                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="&#xe083;" FontFamily="Segoe UI Symbol" Command="{Binding BackspaceButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" Name="BackspaceButton"></Button>
+                    <Button Grid.Row="4" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="." Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="."></Button>
+                    <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="0" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="0"></Button>
+                    <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="CE" ></Button>
+                    <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="=" Command="{Binding EqualsButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"></Button>
                 </Grid>
             </Grid>
         </Border>
