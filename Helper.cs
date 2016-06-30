@@ -180,6 +180,7 @@ namespace LiCalculator
             int s = 1;
             var a = new Stack<IToken>();
             do {
+                if(q.Count == 0)throw new UnexpectedTokenException();
                 IToken t = q.Dequeue();
                 if (HasBrace(t)) {
                     ++s;
@@ -219,7 +220,7 @@ namespace LiCalculator
                     case "ln":
                         return FuncType.Log;
                     default:
-                        return null;
+                        throw new FuntionOutOfRangeException();
                 }
             }
             return null;

@@ -138,15 +138,47 @@ namespace LiCalculatorWPF
                                                     new RelayCommand(Solve, () => InputBox.Text.Length > 0))
             ;
 
-        public void Solve()
+        private bool Error;
+        private void Solve()
         {
             var input = InputBox.Text;
+            Error = true;
             try {
+                ResultBox.ToolTip = null;
+                ResultBox.Text = "";
                 IExpression exp = Parse(ToTokens(input));
                 ResultBox.Text = exp.Value.ToString();
-            } catch(Exception e) {
-                ResultBox.Text = e.ToString();
+                ResultBox.ToolTip = exp.Value is FloatPoint
+                    ? ""
+                    : exp.Value.Value.ToString(CultureInfo.InvariantCulture);
+                Error = false;
+            } catch (FuntionOutOfRangeException) {
+                ResultBox.Text = "并没有搞懂你说的是哪个函数的计算器";
+            } catch (OperatorOutOfRangeException) {
+                ResultBox.Text = "并没有搞懂你说的是哪个运算符的计算器";
+            } catch (DivideByZeroException) {
+                ResultBox.Text = "并不知道怎么用零除的计算器";
+            } catch (UnexpectedTokenException) {
+                ResultBox.Text = "并不会断句的计算器";
+            } catch (UnexpectedExpressionException) {
+                ResultBox.Text = "并不知道怎么算的计算器";
+            } catch (ArgumentOutOfRangeException) {
+                ResultBox.Text = "并无法理解函数参数的计算器";
             }
+        }
+        private RelayCommand _ceButtonClick;
+
+        public RelayCommand CEButtonClick =>
+            _ceButtonClick ??
+            (_ceButtonClick =
+                new RelayCommand(ClearInput, () => ResultBox.Text.Length + InputBox.Text.Length > 0));
+
+        private void ClearInput()
+        {
+            InputBox.Text = Error ? "" : ResultBox.Text;
+            ResultBox.Text = "";
+            ResultBox.ToolTip = "";
+           Error = false;
         }
 
         #region

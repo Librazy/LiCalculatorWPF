@@ -45,7 +45,7 @@ namespace LiCalculator
                             exp = new Div();
                             break;
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            throw new OperatorOutOfRangeException();
                     }
                     expStack.Push(exp);
                 } else if (tokenStack.Count == 1
@@ -119,7 +119,7 @@ namespace LiCalculator
                 } else if(expStack.Count == 1 && tokenStack.Count == 0 && tokenQueue.Count == 0) {
                     break;
                 } else if (no<0||expStack.Count == 2 && tokenQueue.Count == 0) {
-                    throw new ArgumentException();
+                    throw new UnexpectedExpressionException();
                 } else if (tokenQueue.Count == 0
                            && tokenStack.Count == 0) {
                     --no;

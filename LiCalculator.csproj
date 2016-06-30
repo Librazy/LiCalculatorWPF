@@ -49,6 +49,7 @@
     <Compile Include="Expression.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IExpression.cs" />
+    <Compile Include="Exceptions.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="IValue.cs" />

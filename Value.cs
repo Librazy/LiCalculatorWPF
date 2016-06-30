@@ -27,18 +27,49 @@ namespace LiCalculator
     {
         public long Numerator { get; set; }
         public long Denominator { get; set; }
-        public double Value => (double) Numerator/Denominator;
-        public override string ToString() => $"{Numerator}/{Denominator}";
+        public double Value
+        {
+            get {
+                if (Denominator == 0) throw new DivideByZeroException();
+                return (double) Numerator/Denominator;
+            }
+        }
+
+
+        public override string ToString()
+        {
+            if (Denominator == 0) throw new DivideByZeroException();
+            return Denominator == 1 ? $"{Numerator}" : $"{Numerator}/{Denominator}";
+        }
     }
 
     public class FuncVal : IValue
     {
         public FuncType Fun { get; set; }
         public IValue Operand { get; set; }
-        public override string ToString() => $"{Fun}({Operand})";
+
+        public override string ToString()
+            => Operand is FloatPoint ? Value.ToString(CultureInfo.InvariantCulture) : $"{Fun}({Operand})";
         public double Value
         {
             get {
+                switch (Fun) {
+                    case FuncType.Arctan:
+                    case FuncType.Arcsin:
+                    case FuncType.Arccos:
+                        if(Operand.Value<-1||Operand.Value>1)
+                            throw new ArgumentOutOfRangeException();
+                        break;
+                    case FuncType.Log:
+                        if (Operand.Value <= 0)
+                            throw new ArgumentOutOfRangeException();
+                        break;
+                    case FuncType.Sqrt:
+                        if (Operand.Value < 0)
+                            throw new ArgumentOutOfRangeException();
+                        break;
+                       
+                }
                 switch (Fun) {
                     case FuncType.Sin:
                         return Sin(Operand.Value);
