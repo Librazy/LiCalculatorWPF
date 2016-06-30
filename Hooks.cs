@@ -19,10 +19,13 @@ namespace LiCalculatorWPF
             switch (msg)
             {
                 case 0x0024:
+                    // Fix maximize and restore
                     WmGetMinMaxInfo(hwnd, lParam);
+                    // Fix min- size
                     handled = false;
                     break;
                 case 0x0084:
+                    // Fix titlebar
                     var p = new Point();
                     var pInt = lParam.ToInt32();
                     p.X = (pInt << 16) >> 16;
@@ -41,13 +44,12 @@ namespace LiCalculatorWPF
 
         private bool IsOnTitleBar(Point p)
         {
-            // 假设标题栏在0和100之间
             if (p.Y >= 7 && p.Y < 35 && p.X < RenderSize.Width - 140)
                 return true;
             return false;
         }
 
-        private void win_SourceInitialized(object sender, EventArgs e)
+        private void WinSourceInitialized(object sender, EventArgs e)
         {
             var handle = new WinInterop.WindowInteropHelper(this).Handle;
             WinInterop.HwndSource.FromHwnd(handle)?.AddHook(WindowProc);

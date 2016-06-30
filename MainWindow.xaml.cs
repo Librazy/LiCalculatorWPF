@@ -20,7 +20,7 @@ namespace LiCalculatorWPF
         public MainWindow()
         {
             InitializeComponent();
-            MWindow.SourceInitialized += win_SourceInitialized;
+            MWindow.SourceInitialized += WinSourceInitialized;
         }
         /// <summary>
         /// 设置一个控件的背景色渐变

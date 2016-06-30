@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 using System.Windows.Media;
+//http://stackoverflow.com/questions/15641473/how-to-automatically-scale-font-size-for-a-group-of-controls
 
 namespace LiCalculatorWPF
 {
