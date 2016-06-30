@@ -286,15 +286,19 @@ namespace LiCalculatorWPF
 
         public void CloseBracket()
         {
-            var s = InputBox.Text.Substring(0,InputBox.CaretIndex);
+            var s = InputBox.Text.Substring(0,InputBox.CaretIndex)+"()";
             var n =
                 (from c in s.ToCharArray()
                     where c == '(' || c == ')'
-                    group c by c == '('
-                    into g
-                    select g.Count()
-                    ).Aggregate((a, b) => a - b);
-            InputBoxInsert(new string(')', n));
+                    group c by c == '(' into g
+                    orderby g.Key select g.Count()
+                ).Aggregate((a, b) => b - a);
+            if (n > 0) InputBoxInsert(new string(')', n));
+            else {
+                var i = InputBox.CaretIndex;
+                InputBox.Text = new string('(', -n) + InputBox.Text;
+                InputBox.CaretIndex = i - n;
+            }
         }
 
         #endregion
