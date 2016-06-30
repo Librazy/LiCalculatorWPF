@@ -149,21 +149,21 @@ namespace LiCalculatorWPF
                 IExpression exp = Parse(ToTokens(input));
                 ResultBox.Text = exp.Value.ToString();
                 ResultBox.ToolTip = exp.Value is FloatPoint
-                    ? ""
+                    ? null
                     : exp.Value.Value.ToString(CultureInfo.InvariantCulture);
                 Error = false;
             } catch (FuntionOutOfRangeException) {
-                ResultBox.Text = "并没有搞懂你说的是哪个函数的计算器";
+                ResultBox.Text = "并没有搞懂你说的是哪个函数的计算器(´･_･`)";
             } catch (OperatorOutOfRangeException) {
-                ResultBox.Text = "并没有搞懂你说的是哪个运算符的计算器";
+                ResultBox.Text = "并没有搞懂你说的是哪个运算符的计算器(●´ω｀●)";
             } catch (DivideByZeroException) {
-                ResultBox.Text = "并不知道怎么用零除的计算器";
+                ResultBox.Text = "并不知道怎么用ʕ ᵒ̌ ‸ ᵒ̌ ʔ零除的计算器";
             } catch (UnexpectedTokenException) {
-                ResultBox.Text = "并不会断句的计算器";
+                ResultBox.Text = "并不(ｰ ｰ;)会断句的计算器";
             } catch (UnexpectedExpressionException) {
-                ResultBox.Text = "并不知道怎么算的计算器";
+                ResultBox.Text = "并不知道怎么算的计算>_<#器";
             } catch (ArgumentOutOfRangeException) {
-                ResultBox.Text = "并无法理解函数参数的计算器";
+                ResultBox.Text = "并无法理解函数参(╯-╰)/ 数的计算器";
             }
         }
         private RelayCommand _ceButtonClick;
@@ -177,8 +177,8 @@ namespace LiCalculatorWPF
         {
             InputBox.Text = Error ? "" : ResultBox.Text;
             ResultBox.Text = "";
-            ResultBox.ToolTip = "";
-           Error = false;
+            ResultBox.ToolTip = null;
+            Error = false;
         }
 
         #region
