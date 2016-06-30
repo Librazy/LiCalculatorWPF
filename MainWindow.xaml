@@ -12,29 +12,29 @@
     <WindowChrome.WindowChrome>
         <WindowChrome
         CaptionHeight="0"
-        ResizeBorderThickness="8" />
+        ResizeBorderThickness="{Binding Path=WMargin, ElementName=MWindow}" />
     </WindowChrome.WindowChrome>
 
     <Grid Margin="{Binding Path=WMargin, ElementName=MWindow}">
         <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
                     RadiusX="0" RadiusY="0">
             <Rectangle.Effect>
-                <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
+                <DropShadowEffect BlurRadius="{Binding Path=WMargin, ElementName=MWindow}" ShadowDepth="0" Opacity="0.6" />
             </Rectangle.Effect>
         </Rectangle>
         <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="30" RadiusY="5" RadiusX="5" VerticalAlignment="Top" MouseDown="TitlebarOnMD" />
-        <Button x:Name="CloseButton" Style="{StaticResource CtrlButton}" Content="&#xE10A;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Background="#FFF2F2F2" Width="45" FontSize="12"  MouseEnter="CloseButtonOnME" MouseLeave="CloseButtonOnML" HorizontalAlignment="Right" FontFamily="Segoe UI Symbol" Click="CloseButtonOnClick" />
-        <Button x:Name="MaximizeAndRestoreButton" Style="{StaticResource CtrlButton}" Content="&#xE1D9;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Width="45" FontSize="12"  MouseEnter="MARButtonOnME" MouseLeave="MARButtonOnML" HorizontalAlignment="Right" Margin="0,0,45,0" Background="#FFF2F2F2" FontFamily="Segoe UI Symbol" Click="MARButtonOnClick" />
-        <Button x:Name="MiniumButton" Style="{StaticResource CtrlButton}" Content="&#xE108;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Width="45" FontSize="12"  MouseEnter="MiniumButtonOnME" MouseLeave="MiniumButtonOnML" HorizontalAlignment="Right" Margin="0,0,90,0" Background="#FFF2F2F2" Click="MiniumButtonOnClick" FontFamily="Segoe UI Symbol" />
-        <Border BorderBrush="{x:Static SystemParameters.WindowGlassBrush}" BorderThickness="1">
+        <Button x:Name="CloseButton" Style="{StaticResource CtrlButton}" Content="&#xE10A;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Background="#FFF2F2F2" Width="45" FontSize="12"  MouseEnter="CloseButtonOnME" MouseLeave="CloseButtonOnML" HorizontalAlignment="Right" FontFamily="Segoe UI Symbol" Click="CloseButtonOnClick" Panel.ZIndex="1" />
+        <Button x:Name="MaximizeAndRestoreButton" Style="{StaticResource CtrlButton}" Content="&#xE1D9;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Width="45" FontSize="12"  MouseEnter="MARButtonOnME" MouseLeave="MARButtonOnML" HorizontalAlignment="Right" Margin="0,0,45,0" Background="#FFF2F2F2" FontFamily="Segoe UI Symbol" Click="MARButtonOnClick" Panel.ZIndex="1" />
+        <Button x:Name="MiniumButton" Style="{StaticResource CtrlButton}" Content="&#xE108;" VerticalAlignment="Top" BorderThickness="0" Height="30" BorderBrush="{x:Null}" Width="45" FontSize="12"  MouseEnter="MiniumButtonOnME" MouseLeave="MiniumButtonOnML" HorizontalAlignment="Right" Margin="0,0,90,0" Background="#FFF2F2F2" Click="MiniumButtonOnClick" FontFamily="Segoe UI Symbol" Panel.ZIndex="1" />
+        <Border BorderBrush="{x:Static SystemParameters.WindowGlassBrush}" BorderThickness="1" Panel.ZIndex="{Binding Path=WMargin, ElementName=MWindow}">
             <Grid Margin="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="350*" MinHeight="175"/>
-                    <RowDefinition Height="350*" MinHeight="175"/>
+                    <RowDefinition Height="350*" MinHeight="175" />
+                    <RowDefinition Height="350*" MinHeight="175" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100*"/>
-                    <ColumnDefinition Width="{Binding Path=MemoryWidth, ElementName=MWindow}"/>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="{Binding Path=MemoryWidth, ElementName=MWindow}" />
                     <!--{Binding Path=MemoryWidth, ElementName=MWindow}-->
                 </Grid.ColumnDefinitions>
                 <Grid Margin="0,30,0,0" Grid.Row="0" Grid.Column="0">
@@ -47,7 +47,7 @@
                 </Grid>
                 <Grid Margin="0,0,0,0" Grid.Row="1" Grid.Column="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="100*" />
                         <ColumnDefinition Width="{Binding Path=AdvancedInputWidth, ElementName=MWindow}" />
                     </Grid.ColumnDefinitions>
                     <Grid Margin="0,0,0,0" Grid.Column="0">
@@ -56,21 +56,21 @@
                             <local:ScaleFontButtonBehavior MaxFontSize="36" />
                     </i:Interaction.Behaviors>
                     -->
-                    <i:Interaction.Behaviors>
+                        <i:Interaction.Behaviors>
                             <local:ScaleFontButtonBehavior MaxFontSize="36" />
-                    </i:Interaction.Behaviors>
+                        </i:Interaction.Behaviors>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100*" MinHeight="30"/>
-                            <RowDefinition Height="100*" MinHeight="30"/>
-                            <RowDefinition Height="100*" MinHeight="30"/>
-                            <RowDefinition Height="100*" MinHeight="30"/>
-                            <RowDefinition Height="100*" MinHeight="30"/>
+                            <RowDefinition Height="100*" MinHeight="30" />
+                            <RowDefinition Height="100*" MinHeight="30" />
+                            <RowDefinition Height="100*" MinHeight="30" />
+                            <RowDefinition Height="100*" MinHeight="30" />
+                            <RowDefinition Height="100*" MinHeight="30" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100*" MinWidth="30"/>
-                            <ColumnDefinition Width="100*" MinWidth="30"/>
-                            <ColumnDefinition Width="100*" MinWidth="30"/>
-                            <ColumnDefinition Width="100*" MinWidth="30"/>
+                            <ColumnDefinition Width="100*" MinWidth="30" />
+                            <ColumnDefinition Width="100*" MinWidth="30" />
+                            <ColumnDefinition Width="100*" MinWidth="30" />
+                            <ColumnDefinition Width="100*" MinWidth="30" />
                         </Grid.ColumnDefinitions>
 
                         <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="+" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="+"></Button>
@@ -96,22 +96,22 @@
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100*" MinHeight="30"/>
-                            <RowDefinition Height="100*" MinHeight="30"/>
-                            <RowDefinition Height="100*" MinHeight="30"/>
-                            <RowDefinition Height="100*" MinHeight="30"/>
-                            <RowDefinition Height="100*" MinHeight="30"/>
+                            <RowDefinition Height="100*" MinHeight="30" />
+                            <RowDefinition Height="100*" MinHeight="30" />
+                            <RowDefinition Height="100*" MinHeight="30" />
+                            <RowDefinition Height="100*" MinHeight="30" />
+                            <RowDefinition Height="100*" MinHeight="30" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100*" MinWidth="30"/>
-                            <ColumnDefinition Width="100*" MinWidth="30"/>
+                            <ColumnDefinition Width="100*" MinWidth="30" />
+                            <ColumnDefinition Width="100*" MinWidth="30" />
                         </Grid.ColumnDefinitions>
                         <!--
                         <i:Interaction.Behaviors>
                             <local:ScaleFontButtonBehavior MaxFontSize="32" />
                         </i:Interaction.Behaviors>
                        -->
-                                                <i:Interaction.Behaviors>
+                        <i:Interaction.Behaviors>
                             <local:ScaleFontButtonBehavior MaxFontSize="32" />
                         </i:Interaction.Behaviors>
                         <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="Sin" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="Sin("></Button>
@@ -126,17 +126,18 @@
                         <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="..))" Command="{Binding CloseBracketButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"></Button>
                     </Grid>
                 </Grid>
-                <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BorderBrush="#7FABABAB" BorderThickness="1,0,0,0" Padding="0" Margin="0" >
+                <Border Margin="0,0,0,0" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BorderBrush="#7FABABAB" BorderThickness="1,0,0,0" Padding="0">
                     <Grid Margin="0,30,0,0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40" MinHeight="40"/>
-                            <RowDefinition Height="100*"/>
+                            <RowDefinition Height="40" MinHeight="40" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="20" MinHeight="40" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Padding="10" FontSize="16" FontWeight="Bold" Foreground="{Binding Path=HistoryInputColor, ElementName=MWindow}" MouseUp="HistoryInputTextBlockMU">历史记录</TextBlock>
                             <TextBlock Grid.Column="1" Padding="10" FontSize="16" FontWeight="Bold" Foreground="{Binding Path=HistoryResultColor, ElementName=MWindow}" MouseUp="HistoryResultTextBlockMU">历史结果</TextBlock>
@@ -144,8 +145,8 @@
                         <ListView Grid.Row="1" x:Name="listView" BorderThickness="0" Margin="0" HorizontalContentAlignment="Stretch" Padding="0" BorderBrush="{x:Null}" Background="Transparent" Template="{DynamicResource ListViewNewTemplate}" ItemsSource="{Binding HistoryInput, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListViewItem}">
-                                    <Setter Property="Padding" Value="0"/>
-                                    <Setter Property="Margin" Value="0,0,0,20"/>
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="Margin" Value="0,0,0,20" />
                                     <Setter Property="BorderThickness" Value="0" />
                                     <Style.Triggers>
                                         <Trigger Property="IsSelected"
@@ -171,8 +172,8 @@
                                         <Button Style="{StaticResource HistoryButton}" MouseEnter="HistoryButtonsOnME" MouseLeave="HistoryButtonsOnML" Command="{Binding HistoryButtonClick, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="{Binding}">
                                             <Grid Margin="0" Height="80" Width="300">
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="30"/>
-                                                    <RowDefinition Height="50"/>
+                                                    <RowDefinition Height="30" />
+                                                    <RowDefinition Height="50" />
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Grid.Row="0" Text="{Binding Origin, Mode=OneWay}" VerticalAlignment="Top" FontSize="16" Width="300" TextWrapping="Wrap" TextAlignment="Left" Padding="10"  Foreground="{Binding Path=HistoryInputColor, ElementName=MWindow}"></TextBlock>
                                                 <TextBlock Grid.Row="1" Text="{Binding Value.Value, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="20" Width="300" TextWrapping="Wrap" TextAlignment="Right" Padding="10" FontWeight="Bold"  Foreground="{Binding Path=HistoryResultColor, ElementName=MWindow}"></TextBlock>
@@ -182,10 +183,13 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
+                        <Grid Grid.Row="2">
+                            <Button Margin="150,0,0,0" Style="{StaticResource HistoryButton}" MouseEnter="HistoryButtonsOnME" MouseLeave="HistoryButtonsOnML" Content="&#xE107;" Command="{Binding ClearHistoryButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" FontFamily="Segoe UI Symbol" FontSize="14" HorizontalContentAlignment="Right"></Button>
+                        </Grid>
                     </Grid>
                 </Border>
             </Grid>
         </Border>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="9,9,0,0" TextWrapping="Wrap" Text="LiCalc" VerticalAlignment="Top" FontSize="12"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="9,9,0,0" TextWrapping="Wrap" Text="LiCalc" VerticalAlignment="Top" FontSize="12" />
     </Grid>
 </Window>

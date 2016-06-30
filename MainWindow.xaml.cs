@@ -177,22 +177,22 @@ namespace LiCalculatorWPF
 
         private void WorkerButtonsOnME(object sender, MouseEventArgs e)
         {
-            SetBGTransform((Button) sender, Color.FromRgb(230, 230, 230), Color.FromRgb(218, 218, 218), 0.1);
+            SetBGTransform((Control) sender, Color.FromRgb(230, 230, 230), Color.FromRgb(218, 218, 218), 0.1);
         }
 
         private void WorkerButtonsOnML(object sender, MouseEventArgs e)
         {
-            SetBGTransform((Button) sender, Color.FromRgb(218, 218, 218), Color.FromRgb(230, 230, 230), 0.3);
+            SetBGTransform((Control) sender, Color.FromRgb(218, 218, 218), Color.FromRgb(230, 230, 230), 0.3);
         }
 
         private void HistoryButtonsOnME(object sender, MouseEventArgs e)
         {
-            SetBGTransform((Button) sender, Color.FromRgb(240, 240, 240), Color.FromRgb(218, 218, 228), 0.1);
+            SetBGTransform((Control) sender, Color.FromRgb(240, 240, 240), Color.FromRgb(218, 218, 228), 0.1);
         }
 
         private void HistoryButtonsOnML(object sender, MouseEventArgs e)
         {
-            SetBGTransform((Button) sender, Color.FromRgb(218, 218, 228), Color.FromRgb(240, 240, 240), 0.3);
+            SetBGTransform((Control) sender, Color.FromRgb(218, 218, 228), Color.FromRgb(240, 240, 240), 0.3);
         }
 
         private void TitlebarOnMD(object sender, MouseButtonEventArgs e)
@@ -367,10 +367,20 @@ namespace LiCalculatorWPF
                 InputBox.Text = "";
                 InputBoxInsert(exp.Origin);
             } else {
-                InputBoxInsert(exp.Value.ToString());
+                InputBoxInsert(" "+exp.Value.ToString()+" ");
             }
         }
+        private RelayCommand _clearHistoryButtonClick;
 
+        public RelayCommand ClearHistoryButtonClick =>
+            _clearHistoryButtonClick ??
+            (_clearHistoryButtonClick =
+                new RelayCommand(ClearHistory));
+
+        private void ClearHistory()
+        {
+            HistoryInput.Clear();
+        }
         #endregion
     }
 }

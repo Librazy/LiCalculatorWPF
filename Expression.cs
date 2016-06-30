@@ -1,4 +1,5 @@
 ﻿using static LiCalculator.Helper;
+using static System.Math;
 
 namespace LiCalculator
 {
@@ -73,10 +74,29 @@ namespace LiCalculator
         public bool Init => Operand != null;
         public FuncType Fun { get; set; }
         public IExpression Operand { get; set; }
-        public IValue Value => new FuncVal {
-            Operand = Operand.Value,
-            Fun = Fun
-        };
+        public IValue Value
+        {
+            get {
+                if (Fun != FuncType.Sqrt || !(Operand.Value is Fraction))
+                    return new FuncVal {
+                        Operand = Operand.Value,
+                        Fun = Fun
+                    };
+                var v = (Fraction) Operand.Value;
+                if (IsSquare(v.Denominator) && IsSquare(v.Numerator)) {
+                    return new Fraction
+                    {
+                        Numerator = (long)Sqrt(v.Numerator),
+                        Denominator = (long)Sqrt(v.Denominator)
+                    };
+                }
+                return new FuncVal {
+                    Operand = Operand.Value,
+                    Fun = Fun
+                };
+            }
+        }
+
         public string Origin { get; set; }
     }
 }

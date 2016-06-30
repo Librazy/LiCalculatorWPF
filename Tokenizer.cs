@@ -25,7 +25,8 @@ namespace LiCalculator
 
         public static IEnumerable<IToken> NextToken(string str)
         {
-            var arr = str.Split(' ').Aggregate(string.Concat).ToCharArray();
+            var st = str.Split(' ').Aggregate(string.Concat);
+            var arr = st.ToCharArray();
             int start =0, cur =0;
             TokenType ty = TokenType.Integer;
             char[] basicOp = {'+', '-', '*', '/','(',')'};
@@ -41,7 +42,7 @@ namespace LiCalculator
                             if (cur - start == 0) {
                                 break;
                             }
-                            var res = new Token(long.Parse(str.Substring(start, cur - start)));
+                            var res = new Token(long.Parse(st.Substring(start, cur - start)));
                             start = cur;
                             yield return res;
                         }
@@ -49,7 +50,7 @@ namespace LiCalculator
                     case TokenType.FloatPoint:
                         if (cur == arr.Length || !(IsDigit(arr[cur])||arr[cur]=='.')) {
                             ty = cur == arr.Length ? TokenType.Integer : TokenType.Operator;
-                            var res = new Token(double.Parse(str.Substring(start, cur - start)));
+                            var res = new Token(double.Parse(st.Substring(start, cur - start)));
                             start = cur;
                             yield return res;
                         }
@@ -60,13 +61,13 @@ namespace LiCalculator
                             break;
                         }
                         while (start < arr.Length && basicOp.Contains(arr[start])) {
-                            yield return new Token(str.Substring(start++, 1));
+                            yield return new Token(st.Substring(start++, 1));
                             cur = start;
                         }
                         if (cur == arr.Length || IsDigit(arr[cur]) || arr[cur] == '.') {
                             ty = TokenType.Integer;
                             if (cur != start) {
-                                var res = new Token(str.Substring(start, cur - start));
+                                var res = new Token(st.Substring(start, cur - start));
                                 start = cur;
                                 yield return res;
                             }
@@ -74,7 +75,7 @@ namespace LiCalculator
                         if (cur < arr.Length && basicOp.Contains(arr[cur])) {
                             ty = TokenType.Integer;
                             if (cur != start) {
-                                var res = new Token(str.Substring(start, cur - start + 1));
+                                var res = new Token(st.Substring(start, cur - start + 1));
                                 start = ++cur;
                                 yield return res;
                             }

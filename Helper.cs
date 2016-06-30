@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using static System.Math;
 namespace LiCalculator
@@ -6,6 +7,8 @@ namespace LiCalculator
     public static class Helper
     {
         public static long GCD(long a, long b) => b == 0 ? a : GCD(b, a%b);
+
+        public static bool IsSquare(long a) => Abs(a - (long)Sqrt(a) * (long)Sqrt(a)) == 0;
 
         public static IValue Add(IValue LeftOperand, IValue RightOperand)
         {
