@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using static LiCalculator.Helper;
+﻿using static LiCalculator.Helper;
 
 namespace LiCalculator
 {
