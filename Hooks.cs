@@ -44,7 +44,7 @@ namespace LiCalculatorWPF
 
         private bool IsOnTitleBar(Point p)
         {
-            if (p.Y >= 7 && p.Y < 35 && p.X < RenderSize.Width - 140)
+            if (p.Y >= WMargin && p.Y < 35 && p.X < RenderSize.Width - 140)
                 return true;
             return false;
         }

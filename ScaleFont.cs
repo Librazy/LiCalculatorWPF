@@ -65,8 +65,8 @@ namespace LiCalculatorWPF
             {
                 // get desired size with fontsize = MaxFontSize
                 var desiredSize = MeasureText(tb);
-                var widthMargins = tb.Margin.Left + tb.Margin.Right + 30;
-                var heightMargins = tb.Margin.Top + tb.Margin.Bottom + 30;
+                var widthMargins = tb.Margin.Left + tb.Margin.Right + 24;
+                var heightMargins = tb.Margin.Top + tb.Margin.Bottom + 24;
 
                 var desiredHeight = desiredSize.Height + heightMargins;
                 var desiredWidth = desiredSize.Width + widthMargins;
@@ -74,7 +74,6 @@ namespace LiCalculatorWPF
                 // get column width (if limited)
                 var col = AssociatedObject.ColumnDefinitions[Grid.GetColumn(tb)];
                 var colWidth = col.Width == GridLength.Auto ? double.MaxValue : col.ActualWidth;
-
                 // adjust fontsize if text would be clipped horizontally
                 if (colWidth < desiredWidth)
                 {
@@ -92,7 +91,7 @@ namespace LiCalculatorWPF
                     fontSize = Math.Min(fontSize, MaxFontSize / factor);
                 }
             }
-
+            if (fontSize <= 0) return;
             // apply fontsize (always equal fontsizes)
             foreach (var tb in tbs)
             {

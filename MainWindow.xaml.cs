@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -53,7 +54,6 @@ namespace LiCalculatorWPF
             get { return (int) GetValue(WMarginProperty); }
             set { SetValue(WMarginProperty, value); }
         }
-
         /// <summary>
         /// 主窗体的外边距（阴影宽度）的DependencyProperty
         /// </summary>
@@ -69,7 +69,7 @@ namespace LiCalculatorWPF
 
         // Using a DependencyProperty as the backing store for AdvancedInputWidth.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AdvancedInputWidthProperty =
-            DependencyProperty.Register("AdvancedInputWidth", typeof(string), typeof(MainWindow), new PropertyMetadata(""));
+            DependencyProperty.Register("AdvancedInputWidth", typeof(string), typeof(MainWindow), new PropertyMetadata("0"));
 
         public string MemoryWidth
         {
@@ -79,7 +79,21 @@ namespace LiCalculatorWPF
 
         // Using a DependencyProperty as the backing store for AdvancedInputWidth.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MemoryWidthProperty =
-            DependencyProperty.Register("MemoryWidth", typeof(string), typeof(MainWindow), new PropertyMetadata(""));
+            DependencyProperty.Register("MemoryWidth", typeof(string), typeof(MainWindow), new PropertyMetadata("0"));
+
+
+
+
+        public double ScaledFontSize
+        {
+            get { return (double)GetValue(ScaledFontSizeProperty); }
+            set { SetValue(ScaledFontSizeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ScaledFontSize.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ScaledFontSizeProperty =
+            DependencyProperty.Register("ScaledFontSize", typeof(double), typeof(MainWindow), new PropertyMetadata(30d));
+
 
         #endregion
 
@@ -94,22 +108,10 @@ namespace LiCalculatorWPF
                 MaximizeAndRestoreButton.Content = "";
                 WMargin = 10;
             }
-            if (MWindow.ActualWidth > 500)
-            {
-                AdvancedInputWidth = "50*";
-            }
-            else {
-                AdvancedInputWidth = "0";
-            }
-            if (MWindow.ActualWidth > 900)
-            {
-                MemoryWidth = "300";
-            }
-            else
-            {
-                MemoryWidth = "0";
-            }
-        }
+            AdvancedInputWidth = MWindow.ActualWidth > 500 ? "50*" : "0";
+            MemoryWidth = MWindow.ActualWidth > 900 ? "300" : "0";
+            ScaledFontSize = (BackspaceButton?.FontSize + 24) / 2 ?? 30;
+    }
 
         private void InputBoxOnTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -200,9 +202,9 @@ namespace LiCalculatorWPF
             var caretIndex = InputBox.CaretIndex;
             InputBox.Text = InputBox.Text.Insert(caretIndex, s);
             InputBox.Focus();
-            InputBox.CaretIndex = caretIndex + 1;
+            InputBox.CaretIndex = caretIndex + s.Length;
         }
-
+        
         private RelayCommand _backspaceButtonClick;
 
         public RelayCommand BackspaceButtonClick => _backspaceButtonClick ??
@@ -253,6 +255,8 @@ namespace LiCalculatorWPF
                 ResultBox.Text = "并不知道怎么算的计算>_<#器";
             } catch (ArgumentOutOfRangeException) {
                 ResultBox.Text = "并无法理解函数参(╯-╰)/ 数的计算器";
+            } catch (OverflowException){
+                ResultBox.Text = "并不会算这么TAT大数的计算器";
             }
         }
 
@@ -266,9 +270,31 @@ namespace LiCalculatorWPF
         private void ClearInput()
         {
             InputBox.Text = Error ? "" : ResultBox.Text;
+            InputBox.CaretIndex = InputBox.Text.Length;
             ResultBox.Text = "";
             ResultBox.ToolTip = null;
             Error = false;
+        }
+
+
+        private RelayCommand _closeBracketButtonClick;
+
+        public RelayCommand CloseBracketButtonClick =>
+            _closeBracketButtonClick ??
+            (_closeBracketButtonClick =
+                new RelayCommand(CloseBracket, () => InputBox.Text.Length > 0));
+
+        public void CloseBracket()
+        {
+            var s = InputBox.Text.Substring(0,InputBox.CaretIndex);
+            var n =
+                (from c in s.ToCharArray()
+                    where c == '(' || c == ')'
+                    group c by c == '('
+                    into g
+                    select g.Count()
+                    ).Aggregate((a, b) => a - b);
+            InputBoxInsert(new string(')', n));
         }
 
         #endregion

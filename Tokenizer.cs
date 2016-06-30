@@ -41,7 +41,7 @@ namespace LiCalculator
                             if (cur - start == 0) {
                                 break;
                             }
-                            var res = new Token(int.Parse(str.Substring(start, cur - start)));
+                            var res = new Token(long.Parse(str.Substring(start, cur - start)));
                             start = cur;
                             yield return res;
                         }

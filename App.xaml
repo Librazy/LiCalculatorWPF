@@ -13,6 +13,7 @@
       </Setter>
     </Style>
     <Style TargetType="{x:Type Button}" x:Key="WorkerButton">
+      <Setter Property="FontSize" Value="36" />
       <Setter Property="OverridesDefaultStyle" Value="true" />
       <Setter Property="Margin" Value="0" />
       <Setter Property="VerticalContentAlignment" Value="Stretch" />
