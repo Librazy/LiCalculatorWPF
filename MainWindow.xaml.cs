@@ -61,6 +61,26 @@ namespace LiCalculatorWPF
         public static readonly DependencyProperty WMarginProperty =
             DependencyProperty.Register("WMargin", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
 
+        public string AdvancedInputWidth
+        {
+            get { return (string)GetValue(AdvancedInputWidthProperty); }
+            set { SetValue(AdvancedInputWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AdvancedInputWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AdvancedInputWidthProperty =
+            DependencyProperty.Register("AdvancedInputWidth", typeof(string), typeof(MainWindow), new PropertyMetadata(""));
+
+        public string MemoryWidth
+        {
+            get { return (string)GetValue(MemoryWidthProperty); }
+            set { SetValue(MemoryWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AdvancedInputWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MemoryWidthProperty =
+            DependencyProperty.Register("MemoryWidth", typeof(string), typeof(MainWindow), new PropertyMetadata(""));
+
         #endregion
 
         #region MainWindow Events
@@ -73,6 +93,21 @@ namespace LiCalculatorWPF
             } else {
                 MaximizeAndRestoreButton.Content = "";
                 WMargin = 10;
+            }
+            if (MWindow.ActualWidth > 500)
+            {
+                AdvancedInputWidth = "50*";
+            }
+            else {
+                AdvancedInputWidth = "0";
+            }
+            if (MWindow.ActualWidth > 900)
+            {
+                MemoryWidth = "300";
+            }
+            else
+            {
+                MemoryWidth = "0";
             }
         }
 

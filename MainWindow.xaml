@@ -32,19 +32,30 @@
                     <RowDefinition Height="350*" MinHeight="175"/>
                     <RowDefinition Height="350*" MinHeight="175"/>
                 </Grid.RowDefinitions>
-                <Grid Margin="0,30,0,0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"/>
+                    <ColumnDefinition Width="{Binding Path=MemoryWidth, ElementName=MWindow}"/>
+                </Grid.ColumnDefinitions>
+                <Grid Margin="0,30,0,0" Grid.Row="0" Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="180*" />
                         <RowDefinition Height="120*" />
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="InputBox" Grid.Column="0" Grid.Row="0" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" TextChanged="InputBoxOnTextChanged" Padding="10" />
-                    <TextBox x:Name="ResultBox" Grid.Column="0" Grid.Row="1" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" IsReadOnly="True" Background="#FFD7EFF4" Padding="10" />
+                    <TextBox x:Name="InputBox" Grid.Column="0" Grid.Row="0" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" TextChanged="InputBoxOnTextChanged" Padding="10" BorderBrush="#7FABADB3" />
+                    <TextBox x:Name="ResultBox" Grid.Column="0" Grid.Row="1" Margin="10" TextWrapping="Wrap" BorderThickness="0,0,0,1" FontSize="18" IsReadOnly="True" Background="#FFD7EFF4" Padding="10" BorderBrush="#7FABADB3" />
 
                 </Grid>
-                <Grid Margin="0,0,0,0" Grid.Row="1">
+                <Grid Margin="0,0,0,0" Grid.Row="1" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="{Binding Path=AdvancedInputWidth, ElementName=MWindow}" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Margin="0,0,0,0" Grid.Column="0">
+                       
                     <i:Interaction.Behaviors>
-                        <local:ScaleFontButtonBehavior MaxFontSize="32" />
+                            <local:ScaleFontButtonBehavior MaxFontSize="32" />
                     </i:Interaction.Behaviors>
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100*" MinHeight="30"/>
                         <RowDefinition Height="100*" MinHeight="30"/>
@@ -79,7 +90,10 @@
                     <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="0" Command="{Binding InputButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" CommandParameter="0"></Button>
                     <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="CE" Command="{Binding CEButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"></Button>
                     <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource WorkerButton}" MouseEnter="WorkerButtonsOnME" MouseLeave="WorkerButtonsOnML" Content="=" Command="{Binding EqualsButtonClick, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"></Button>
+                    </Grid>
                 </Grid>
+                <Border  Grid.Column="1"  Grid.RowSpan="2" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" BorderThickness="1,0,0,0" Opacity="0.5">
+                </Border>
             </Grid>
         </Border>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="9,9,0,0" TextWrapping="Wrap" Text="LiCalc" VerticalAlignment="Top" FontSize="12"/>
