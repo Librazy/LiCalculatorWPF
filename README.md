@@ -2,13 +2,13 @@
 
 项目结构
 ======
-LiCalculatorWPF.sln
-* LiCalculator
+LiCalculatorWPF.sln [MPL 2.0]
+* LiCalculator [MIT License || MPL 2.0]
 
   计算器的核心部分，包含Token类、Value类、Expression类相关接口和类定义
   
   以及Tokenizer和Parser
   
-* LiCalculatorWPF
+* LiCalculatorWPF [MPL 2.0]
 
   计算器UI
