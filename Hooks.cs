@@ -2,7 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 using WinInterop = System.Windows.Interop;
-
+//Some part of this file may contain codes from Internet without OSS that clearly attached to
+//Ref:  http://blog.csdn.net/mane_yao/article/details/5708487
+//      http://stackoverflow.com/questions/6890472/wpf-maximize-window-with-windowstate-problem-application-will-hide-windows-ta
 namespace LiCalculatorWPF
 {
     public partial class MainWindow
