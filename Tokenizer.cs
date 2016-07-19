@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Char;
 namespace LiCalculator
 {
     public enum TokenType
@@ -26,66 +21,20 @@ namespace LiCalculator
         public static IEnumerable<IToken> NextToken(string str)
         {
             var st = str.Split(' ').Aggregate(string.Concat);
-            var arr = st.ToCharArray();
-            int start =0, cur =0;
-            TokenType ty = TokenType.Integer;
-            char[] basicOp = {'+', '-', '*', '/','(',')'};
-            while (start != arr.Length) {
-                switch (ty) {
-                    case TokenType.Integer:
-                        if (cur != arr.Length && (arr[cur] == '.' || arr[start] == '.')) {
-                            ty = TokenType.FloatPoint;
-                            continue;
-                        }
-                        if (cur == arr.Length || !IsDigit(arr[cur])) {
-                            ty = TokenType.Operator;
-                            if (cur - start == 0) {
-                                break;
-                            }
-                            var res = new Token(long.Parse(st.Substring(start, cur - start)));
-                            start = cur;
-                            yield return res;
-                        }
-                        break;
-                    case TokenType.FloatPoint:
-                        if (cur == arr.Length || !(IsDigit(arr[cur])||arr[cur]=='.')) {
-                            ty = cur == arr.Length ? TokenType.Integer : TokenType.Operator;
-                            var res = new Token(double.Parse(st.Substring(start, cur - start)));
-                            start = cur;
-                            yield return res;
-                        }
-                        break;
-                    case TokenType.Operator:
-                        if (cur == start) {
-                            ty = TokenType.Integer;
-                            break;
-                        }
-                        while (start < arr.Length && basicOp.Contains(arr[start])) {
-                            yield return new Token(st.Substring(start++, 1));
-                            cur = start;
-                        }
-                        if (cur == arr.Length || IsDigit(arr[cur]) || arr[cur] == '.') {
-                            ty = TokenType.Integer;
-                            if (cur != start) {
-                                var res = new Token(st.Substring(start, cur - start));
-                                start = cur;
-                                yield return res;
-                            }
-                        }
-                        if (cur < arr.Length && basicOp.Contains(arr[cur])) {
-                            ty = TokenType.Integer;
-                            if (cur != start) {
-                                var res = new Token(st.Substring(start, cur - start + 1));
-                                start = ++cur;
-                                yield return res;
-                            }
-                            continue;
-                        }
-                        break;
+            var ops = new[] {')', '+', '-', '*', '/', '^' };
+            var list = st.Explode('(');
+            list = ops.Aggregate(list, (current, op) => current.Explode(op));
+            foreach (var tokstr in list) {
+                long inte;
+                double fp;
+                if (long.TryParse(tokstr, out inte)) {
+                    yield return new Token(inte);
+                }else if (double.TryParse(tokstr, out fp)) {
+                    yield return new Token(fp);
+                } else {
+                    yield return new Token(tokstr);
                 }
-                if (cur != arr.Length) cur++;
             }
-
         }
     }
 

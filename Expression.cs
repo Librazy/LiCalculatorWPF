@@ -1,8 +1,16 @@
-﻿using static LiCalculator.Helper;
+﻿using System.Collections.Generic;
+using static LiCalculator.Helper;
 using static System.Math;
+using ItemList = System.Collections.Generic.List<LiCalculator.Item>;
 
 namespace LiCalculator
 {
+    public class Item
+    {
+        public IExpression Exp;
+        public bool? Attr { get; set; } = null;
+    }
+
     public class Val : IExpression
     {
         public Val() {}
@@ -31,72 +39,42 @@ namespace LiCalculator
         public string Origin { get; set; }
     }
 
-
-
-    public class Sum : ILBinary
+    public class Brace : IExpression
     {
-        public IValue Value => Add(LeftOperand.Value, RightOperand.Value);
-        public bool Init => LeftOperand != null && RightOperand != null;
-        public IExpression LeftOperand { get; set; }
-        public IExpression RightOperand { get; set; }
+        public ItemList Contents;
+        public bool Init => true;
+        public IValue Value => null;
         public string Origin { get; set; }
     }
 
-    public class Sub : ILBinary
+    public class Additive : IExpression
     {
-        public IValue Value => Sub(LeftOperand.Value, RightOperand.Value);
-        public bool Init => LeftOperand != null && RightOperand != null;
-        public IExpression LeftOperand { get; set; }
-        public IExpression RightOperand { get; set; }
+        public const bool POSITIVE = true;
+        public const bool NEGATIVE = false;
+        public bool Sign;
+        public ItemList Operand;
+        public bool Init => Operand.Count >= 2;
+        public IValue Value { get; set; }
         public string Origin { get; set; }
     }
 
-    public class Mul : IHBinary
+    public class Multiplicative : IExpression
     {
-        public IValue Value => Mul(LeftOperand.Value, RightOperand.Value);
-        public bool Init => LeftOperand != null && RightOperand != null;
-        public IExpression LeftOperand { get; set; }
-        public IExpression RightOperand { get; set; }
+        public const bool NUMERATOR = true;
+        public const bool DENOMINATOR = false;
+        public bool Sign;
+        public ItemList Operand;
+        public bool Init => Operand.Count >= 2;
+        public IValue Value { get; set; }
         public string Origin { get; set; }
     }
 
-    public class Div : IHBinary
+    public class Functional : IExpression
     {
-        public IValue Value => Div(LeftOperand.Value, RightOperand.Value);
-        public bool Init => LeftOperand != null && RightOperand != null;
-        public IExpression LeftOperand { get; set; }
-        public IExpression RightOperand { get; set; }
-        public string Origin { get; set; }
-    }
-
-    public class Func : IUnary
-    {
-        public bool Init => Operand != null;
-        public FuncType Fun { get; set; }
-        public IExpression Operand { get; set; }
-        public IValue Value
-        {
-            get {
-                if (Fun != FuncType.Sqrt || !(Operand.Value is Fraction))
-                    return new FuncVal {
-                        Operand = Operand.Value,
-                        Fun = Fun
-                    };
-                var v = (Fraction) Operand.Value;
-                if (IsSquare(v.Denominator) && IsSquare(v.Numerator)) {
-                    return new Fraction
-                    {
-                        Numerator = (long)Sqrt(v.Numerator),
-                        Denominator = (long)Sqrt(v.Denominator)
-                    };
-                }
-                return new FuncVal {
-                    Operand = Operand.Value,
-                    Fun = Fun
-                };
-            }
-        }
-
+        public FuncType Func;
+        public ItemList Operand;
+        public bool Init => Operand.Count >= 1;
+        public IValue Value { get; set; }
         public string Origin { get; set; }
     }
 }
